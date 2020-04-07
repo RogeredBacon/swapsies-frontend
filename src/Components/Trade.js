@@ -1,0 +1,47 @@
+import React from 'react';
+import ItemDropdown from './ItemDropdown';
+import TradeTable from './TradeTable';
+import { Segment, Button } from 'semantic-ui-react';
+
+const Trade = props => {
+	const {
+		item,
+		trader,
+		currentUser,
+		tradersOptions,
+		usersOptions,
+		buyArray,
+		sellArray,
+		buyItem,
+		sellItem,
+		cancelTrade,
+		createTrade
+	} = props;
+
+	return (
+		<div>
+			<Segment>
+				<TradeTable
+					tradersOptions={tradersOptions}
+					usersOptions={usersOptions}
+					sellItem={sellItem}
+					buyItem={buyItem}
+					sellArray={sellArray}
+					buyArray={buyArray}
+				/>
+			</Segment>
+			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
+			<Button onClick={createTrade}>Trade!</Button>
+			<Segment>
+				<div>
+					<h1>Trader</h1>
+					<h2>{trader.first_name}</h2>
+					<h2>{trader.last_name}</h2>
+					<h3>{trader.location}</h3>
+				</div>
+			</Segment>
+		</div>
+	);
+};
+
+export default Trade;
