@@ -3,21 +3,22 @@ import ItemDropdown from './ItemDropdown';
 import TradeItem from './TradeItem';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 
-const TradeTable = props => {
+const TradeTable = (props) => {
 	const {
 		usersOptions,
 		sellItem,
 		tradersOptions,
 		buyItem,
 		sellArray,
-		buyArray
+		buyArray,
+		changeAmount,
 	} = props;
 
-	const row = array => {
-		let test = array.map(element => {
+	const row = (array) => {
+		let test = array.map((element) => {
 			return (
 				<Grid.Row>
-					<TradeItem item={element} />
+					<TradeItem item={element} changeAmount={changeAmount} />
 				</Grid.Row>
 			);
 		});

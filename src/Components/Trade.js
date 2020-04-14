@@ -3,7 +3,7 @@ import ItemDropdown from './ItemDropdown';
 import TradeTable from './TradeTable';
 import { Segment, Button } from 'semantic-ui-react';
 
-const Trade = props => {
+const Trade = (props) => {
 	const {
 		item,
 		trader,
@@ -15,7 +15,8 @@ const Trade = props => {
 		buyItem,
 		sellItem,
 		cancelTrade,
-		createTrade
+		createTrade,
+		changeAmount,
 	} = props;
 
 	return (
@@ -28,6 +29,7 @@ const Trade = props => {
 					buyItem={buyItem}
 					sellArray={sellArray}
 					buyArray={buyArray}
+					changeAmount={changeAmount}
 				/>
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>

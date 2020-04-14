@@ -21,7 +21,7 @@ class Home extends React.Component {
 		tradersOptions: [],
 		usersOptions: [],
 		buyArray: [],
-		sellArray: []
+		sellArray: [],
 	};
 
 	componentDidMount() {
@@ -30,14 +30,14 @@ class Home extends React.Component {
 
 	getAllItems = () => {
 		fetch('http://localhost:3000/items')
-			.then(res => res.json())
-			.then(items => this.setState({ items }));
+			.then((res) => res.json())
+			.then((items) => this.setState({ items }));
 
 		fetch('http://localhost:3000/skills')
-			.then(res => res.json())
-			.then(skills =>
+			.then((res) => res.json())
+			.then((skills) =>
 				this.setState({
-					items: this.state.items.concat(skills)
+					items: this.state.items.concat(skills),
 				})
 			);
 	};
@@ -46,77 +46,108 @@ class Home extends React.Component {
 		console.log(index, skill);
 		if (skill) {
 			return fetch(`http://localhost:3000/items/${index}`)
-				.then(res => res.json())
-				.then(item => item);
+				.then((res) => res.json())
+				.then((item) => item);
 		} else {
 			return fetch(`http://localhost:3000/skills/${index}`)
-				.then(res => res.json())
-				.then(item => item);
+				.then((res) => res.json())
+				.then((item) => item);
 		}
 	};
 
-	getTrader = id => {
+	getTrader = (id) => {
 		return fetch(`http://localhost:3000/users/${id}`)
-			.then(res => res.json())
-			.then(trader => trader);
+			.then((res) => res.json())
+			.then((trader) => trader);
 	};
 
-	getTradersItems = id => {
+	getTradersItems = (id) => {
 		fetch(`http://localhost:3000/users/${id}/goods`)
-			.then(res => res.json())
-			.then(tradersItems => this.createOptions(tradersItems, true));
+			.then((res) => res.json())
+			.then((tradersItems) => this.createOptions(tradersItems, true));
 	};
 
-	getUsersItems = id => {
+	getUsersItems = (id) => {
 		fetch(`http://localhost:3000/users/${id}/goods`)
-			.then(res => res.json())
-			.then(usersItems => this.createOptions(usersItems, false));
+			.then((res) => res.json())
+			.then((usersItems) => this.createOptions(usersItems, false));
 	};
 
 	newTradeRequest = () => {
-		const data = { status: 'open' };
+		const data = {
+			initiating_user_id: this.state.currentUser.id,
+			receiving_user_id: this.state.trader.id,
+			status: 'open',
+			initiator_complete: false,
+			receiver_complete: false,
+		};
 		return fetch(`http://localhost:3000/trade_requests`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				accept: 'application/json'
+				accept: 'application/json',
 			},
-			body: JSON.stringify(data)
+			body: JSON.stringify(data),
 		})
-			.then(res => res.json())
-			.then(tradeID => tradeID)
+			.then((res) => res.json())
+			.then((tradeID) => tradeID)
 			.catch(console.log);
 	};
 
-	itemsToTrade = tradeRequestId => {
+	itemsToTrade = (tradeRequestId) => {
 		const items = this.state.buyArray.concat(this.state.sellArray);
-		items.forEach(element => {
-			const data = {
-				trade_request_id: tradeRequestId,
-				goods_and_service_id: element.id
-			};
-			fetch(`http://localhost:3000/trade_request_items`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					accept: 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-				.then(res => res.json())
-				.then(tradeID => tradeID)
-				.catch(console.log);
+		console.log('TradeID', tradeRequestId);
+		items.forEach((element) => {
+			if (!element.amount) {
+				console.log('skill', element);
+				const data = {
+					trade_request_id: tradeRequestId,
+					skill_id: element.id,
+					locked: false,
+					amount: element.total ? element.total : 1,
+				};
+				fetch(`http://localhost:3000/trade_request_skills`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						accept: 'application/json',
+					},
+					body: JSON.stringify(data),
+				})
+					.then((res) => res.json())
+					.then((tradeID) => console.log(tradeID))
+					.catch(console.log);
+			} else {
+				console.log('item', element);
+				const data = {
+					trade_request_id: tradeRequestId,
+					item_id: element.id,
+					locked: false,
+					amount: element.total ? element.total : 1,
+				};
+				fetch(`http://localhost:3000/trade_request_items`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						accept: 'application/json',
+					},
+					body: JSON.stringify(data),
+				})
+					.then((res) => res.json())
+					.then((tradeID) => console.log(tradeID))
+					.catch(console.log);
+			}
 		});
 	};
 
-	setPage = page => {
+	setPage = (page) => {
 		this.setState({
-			currentPage: page
+			currentPage: page,
 		});
 	};
 
 	createOptions = (itemsList, trader) => {
-		const x = itemsList.map(e => {
+		const x = itemsList.map((e) => {
 			let x = {};
 			x.key = e.title;
 			x.text = e.title;
@@ -132,24 +163,24 @@ class Home extends React.Component {
 
 	buyItem = (event, { value }) => {
 		console.log(value);
-		const buyArray = value.map(id =>
-			this.state.tradersItems.find(e => e.id === id)
+		const buyArray = value.map((id) =>
+			this.state.tradersItems.find((e) => e.id === id)
 		);
 		this.setState({ buyArray });
 	};
 
 	sellItem = (event, { value }) => {
 		console.log(value);
-		const sellArray = value.map(id =>
-			this.state.usersItems.find(e => e.id === id)
+		const sellArray = value.map((id) =>
+			this.state.usersItems.find((e) => e.id === id)
 		);
 		this.setState({ sellArray });
 	};
 
 	seeItem = (index, userID, skill) => {
-		this.getItem(index, skill).then(item => this.setState({ item }));
+		this.getItem(index, skill).then((item) => this.setState({ item }));
 		this.getTrader(userID)
-			.then(trader => this.setState({ trader }))
+			.then((trader) => this.setState({ trader }))
 			.then(this.setPage('show'));
 	};
 
@@ -161,22 +192,37 @@ class Home extends React.Component {
 	};
 
 	createTrade = () => {
-		this.newTradeRequest().then(tradeID => this.itemsToTrade(tradeID.id));
+		this.newTradeRequest().then((tradeID) => this.itemsToTrade(tradeID.id));
 		this.setPage('home');
 	};
 
-	cancelTrade = page => {
+	cancelTrade = (page) => {
 		this.setState({
 			sellArray: [],
-			buyArray: []
+			buyArray: [],
 		});
 		this.setPage(page);
 	};
 
 	displayUserMenu = () => {
 		this.setState({
-			userMenuShown: !this.state.userMenuShown
+			userMenuShown: !this.state.userMenuShown,
 		});
+	};
+
+	changeAmount = (event, { value, itemID, skill }) => {
+		console.log(value, itemID, skill);
+		if (itemID.user_id === this.state.currentUser.id) {
+			this.state.sellArray.map((e) => {
+				if (e == itemID) e.total = value;
+			});
+		} else {
+			this.state.buyArray.map((e) => {
+				if (e == itemID) {
+					e.total = value;
+				}
+			});
+		}
 	};
 
 	addItem = (e, title, subtitle, description, worth_rating, skill, amount) => {
@@ -188,18 +234,18 @@ class Home extends React.Component {
 				subtitle,
 				description,
 				worth_rating,
-				session_time: amount
+				session_time: amount,
 			};
 			fetch(`http://localhost:3000/skills`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					accept: 'application/json'
+					accept: 'application/json',
 				},
-				body: JSON.stringify(data)
+				body: JSON.stringify(data),
 			})
-				.then(res => res.json())
-				.then(data => this.getAllItems())
+				.then((res) => res.json())
+				.then((data) => this.getAllItems())
 				.catch(console.log);
 		} else {
 			const data = {
@@ -208,18 +254,18 @@ class Home extends React.Component {
 				subtitle,
 				description,
 				worth_rating,
-				amount
+				amount,
 			};
 			fetch(`http://localhost:3000/items`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					accept: 'application/json'
+					accept: 'application/json',
 				},
-				body: JSON.stringify(data)
+				body: JSON.stringify(data),
 			})
-				.then(res => res.json())
-				.then(data => this.getAllItems())
+				.then((res) => res.json())
+				.then((data) => this.getAllItems())
 				.catch(console.log);
 		}
 		this.getAllItems();
@@ -236,7 +282,7 @@ class Home extends React.Component {
 			tradersOptions,
 			usersOptions,
 			buyArray,
-			sellArray
+			sellArray,
 		} = this.state;
 		switch (currentPage) {
 			case 'home': {
@@ -261,6 +307,7 @@ class Home extends React.Component {
 						sellItem={this.sellItem}
 						cancelTrade={this.cancelTrade}
 						createTrade={this.createTrade}
+						changeAmount={this.changeAmount}
 					/>
 				);
 			}

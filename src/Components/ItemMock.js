@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Item = props => {
+const ItemMock = (props) => {
 	const { item } = props;
 
 	return (
@@ -15,4 +15,4 @@ const Item = props => {
 	);
 };
 
-export default Item;
+export default ItemMock;
