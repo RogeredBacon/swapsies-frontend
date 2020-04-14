@@ -18,6 +18,7 @@ const TradeItem = (props) => {
 	if (!item.amount) {
 		return (
 			<div>
+				{item.title}
 				<Image src={item.image} className={'tradeItem'} />
 				<Dropdown
 					itemID={item}
@@ -33,6 +34,7 @@ const TradeItem = (props) => {
 	} else {
 		return (
 			<div>
+				{item.title}
 				<Image src={item.image} className={'tradeItem'} />
 				<Dropdown
 					itemID={item}

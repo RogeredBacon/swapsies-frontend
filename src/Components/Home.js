@@ -2,9 +2,12 @@ import React from 'react';
 import ItemsContainer from './ItemsContainer';
 import ShowItem from './ShowItem';
 import Trade from './Trade';
+import EditTrade from './EditTrade';
 import UserMenu from './UserMenu';
 import MenuButton from './MenuButton';
 import AddItem from './AddItem';
+import UserTrades from './UserTrades';
+import UserPage from './UserPage';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -22,6 +25,10 @@ class Home extends React.Component {
 		usersOptions: [],
 		buyArray: [],
 		sellArray: [],
+		userTrades: [],
+		userPartners: [],
+		userItems: [],
+		segment: '',
 	};
 
 	componentDidMount() {
@@ -71,6 +78,12 @@ class Home extends React.Component {
 		fetch(`http://localhost:3000/users/${id}/goods`)
 			.then((res) => res.json())
 			.then((usersItems) => this.createOptions(usersItems, false));
+	};
+
+	getCurrentItems = (id) => {
+		fetch(`http://localhost:3000/users/${id}/goods`)
+			.then((res) => res.json())
+			.then((userItems) => this.setState({ userItems, segment: 'items' }));
 	};
 
 	newTradeRequest = () => {
@@ -191,6 +204,46 @@ class Home extends React.Component {
 		this.setPage('trade');
 	};
 
+	getDealItems = (tradeRequestId) => {
+		fetch(
+			`http://localhost:3000/trade_requests/${tradeRequestId}/goods/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((usersItems) =>
+				this.setState({ sellArray: usersItems[0], buyArray: usersItems[1] })
+			);
+	};
+
+	editTrade = (tradeRequestId, traderId) => {
+		this.getTradersItems(traderId);
+		this.getUsersItems(this.state.currentUser.id);
+		this.getDealItems(tradeRequestId);
+		console.log(this.state.sellArray, this.state.buyArray);
+		this.setPage('editTrade');
+	};
+
+	openUserTrades = () => {
+		this.getUsersTrades()
+			.then(this.getUsersTradePartners())
+			.then(this.setPage('userTrades'));
+	};
+
+	getUsersTradePartners = () => {
+		return fetch(
+			`http://localhost:3000/users_partners/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((userPartners) => this.setState({ userPartners }));
+	};
+
+	getUsersTrades = () => {
+		return fetch(
+			`http://localhost:3000/trade_requests_user/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((userTrades) => this.setState({ userTrades }));
+	};
+
 	createTrade = () => {
 		this.newTradeRequest().then((tradeID) => this.itemsToTrade(tradeID.id));
 		this.setPage('home');
@@ -283,6 +336,10 @@ class Home extends React.Component {
 			usersOptions,
 			buyArray,
 			sellArray,
+			userTrades,
+			userPartners,
+			userItems,
+			segment,
 		} = this.state;
 		switch (currentPage) {
 			case 'home': {
@@ -311,8 +368,46 @@ class Home extends React.Component {
 					/>
 				);
 			}
+			case 'editTrade': {
+				return (
+					<EditTrade
+						item={item}
+						trader={trader}
+						currentUser={currentUser}
+						tradersOptions={tradersOptions}
+						usersOptions={usersOptions}
+						buyArray={buyArray}
+						sellArray={sellArray}
+						buyItem={this.buyItem}
+						sellItem={this.sellItem}
+						cancelTrade={this.cancelTrade}
+						createTrade={this.createTrade}
+						changeAmount={this.changeAmount}
+					/>
+				);
+			}
 			case 'addItem': {
 				return <AddItem addItem={this.addItem} />;
+			}
+			case 'userPage': {
+				return (
+					<UserPage
+						currentUser={currentUser}
+						userItems={userItems}
+						getCurrentItems={this.getCurrentItems}
+						segment={segment}
+					/>
+				);
+			}
+			case 'userTrades': {
+				return (
+					<UserTrades
+						userTrades={userTrades}
+						currentUser={currentUser}
+						userPartners={userPartners}
+						editTrade={this.editTrade}
+					/>
+				);
 			}
 			default: {
 				return <ItemsContainer items={items} seeItem={this.seeItem} />;
@@ -329,6 +424,7 @@ class Home extends React.Component {
 						displayUserMenu={this.displayUserMenu}
 						userMenuShown={this.state.userMenuShown}
 						currentUser={this.state.currentUser}
+						openUserTrades={this.openUserTrades}
 					/>
 					<div>
 						<MenuButton displayUserMenu={this.displayUserMenu} />

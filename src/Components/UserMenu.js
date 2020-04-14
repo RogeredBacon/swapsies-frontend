@@ -1,8 +1,8 @@
 import React from 'react';
 import { Segment, Sidebar, Menu, Icon } from 'semantic-ui-react';
 
-const UserMenu = props => {
-	const { displayUserMenu, userMenuShown, setPage } = props;
+const UserMenu = (props) => {
+	const { displayUserMenu, userMenuShown, setPage, openUserTrades } = props;
 	return (
 		<Sidebar
 			as={Segment}
@@ -21,11 +21,14 @@ const UserMenu = props => {
 					position='left'>
 					<Icon name='log out' />
 				</Menu.Item>
-				<Menu.Item as='a' onClick={() => setPage('myTrades')}>
+				<Menu.Item as='a' onClick={() => openUserTrades()}>
 					<Icon name='shuffle' />
 				</Menu.Item>
 				<Menu.Item as='a'>
 					<Icon name='edit' onClick={() => setPage('addItem')} />
+				</Menu.Item>
+				<Menu.Item as='a'>
+					<Icon name='user circle' onClick={() => setPage('userPage')} />
 				</Menu.Item>
 				<Menu.Item as='a'>
 					<Icon name='home' onClick={() => setPage('home')} />
