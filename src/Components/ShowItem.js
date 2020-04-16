@@ -1,8 +1,10 @@
 import React from 'react';
+import GMap from './GMap';
 import { Segment, Button } from 'semantic-ui-react';
 
-const ShowItem = props => {
-	const { item, trader, startTrade } = props;
+const ShowItem = (props) => {
+	const { item, trader, startTrade, lat, long } = props;
+	// const location = this.props.trader.location.split(', ');
 	return (
 		<div>
 			<Segment>
@@ -33,6 +35,9 @@ const ShowItem = props => {
 					<h2>{trader.first_name}</h2>
 					<h2>{trader.last_name}</h2>
 					<h3>{trader.location}</h3>
+					{/* <div>
+						<GMap lat={lat} long={long} />
+					</div> */}
 				</div>
 			</Segment>
 		</div>

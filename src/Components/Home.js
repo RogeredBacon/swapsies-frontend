@@ -193,7 +193,13 @@ class Home extends React.Component {
 	seeItem = (index, userID, skill) => {
 		this.getItem(index, skill).then((item) => this.setState({ item }));
 		this.getTrader(userID)
-			.then((trader) => this.setState({ trader }))
+			.then((trader) =>
+				this.setState({
+					trader,
+					traderLat: trader.location.split(', ')[0],
+					traderLong: trader.location.split(', ')[1],
+				})
+			)
 			.then(this.setPage('show'));
 	};
 
@@ -340,6 +346,8 @@ class Home extends React.Component {
 			userPartners,
 			userItems,
 			segment,
+			traderLat,
+			traderLong,
 		} = this.state;
 		switch (currentPage) {
 			case 'home': {
@@ -347,7 +355,13 @@ class Home extends React.Component {
 			}
 			case 'show': {
 				return (
-					<ShowItem item={item} trader={trader} startTrade={this.startTrade} />
+					<ShowItem
+						item={item}
+						trader={trader}
+						startTrade={this.startTrade}
+						// lat={traderLat}
+						// long={traderLong}
+					/>
 				);
 			}
 			case 'trade': {
