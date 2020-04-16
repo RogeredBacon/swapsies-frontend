@@ -80,8 +80,8 @@ class Home extends React.Component {
 			.then((usersItems) => this.createOptions(usersItems, false));
 	};
 
-	getCurrentItems = (id) => {
-		fetch(`http://localhost:3000/users/${id}/goods`)
+	getCurrentItems = () => {
+		fetch(`http://localhost:3000/users/${this.state.currentUser.id}/goods`)
 			.then((res) => res.json())
 			.then((userItems) => this.setState({ userItems, segment: 'items' }));
 	};
