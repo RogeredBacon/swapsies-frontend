@@ -39,7 +39,7 @@ const Trade = (props) => {
 					<h1>Trader</h1>
 					<h2>{trader.first_name}</h2>
 					<h2>{trader.last_name}</h2>
-					<h3>{trader.location}</h3>
+					{/* <h3>{trader.location}</h3> */}
 				</div>
 			</Segment>
 		</div>
