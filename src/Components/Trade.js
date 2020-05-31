@@ -1,13 +1,10 @@
 import React from 'react';
-import ItemDropdown from './ItemDropdown';
 import TradeTable from './TradeTable';
 import { Segment, Button } from 'semantic-ui-react';
 
 const Trade = (props) => {
 	const {
-		item,
 		trader,
-		currentUser,
 		tradersOptions,
 		usersOptions,
 		buyArray,

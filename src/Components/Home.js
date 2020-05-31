@@ -273,11 +273,11 @@ class Home extends React.Component {
 		console.log(value, itemID, skill);
 		if (itemID.user_id === this.state.currentUser.id) {
 			this.state.sellArray.map((e) => {
-				if (e == itemID) e.total = value;
+				if (e === itemID) e.total = value;
 			});
 		} else {
 			this.state.buyArray.map((e) => {
-				if (e == itemID) {
+				if (e === itemID) {
 					e.total = value;
 				}
 			});
@@ -346,8 +346,6 @@ class Home extends React.Component {
 			userPartners,
 			userItems,
 			segment,
-			traderLat,
-			traderLong,
 		} = this.state;
 		switch (currentPage) {
 			case 'home': {

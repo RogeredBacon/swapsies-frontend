@@ -1,7 +1,7 @@
 import React from 'react';
 import CurrentItems from './CurrentItems';
 import PastTrades from './PastTrades';
-import { Segment, Image, Dropdown, Button } from 'semantic-ui-react';
+import { Segment, Image, Button } from 'semantic-ui-react';
 
 const UserPage = (props) => {
 	const { currentUser, segment, userItems, getCurrentItems, seeItem } = props;
@@ -9,6 +9,7 @@ const UserPage = (props) => {
 	const renderSegment = () => {
 		switch (segment) {
 			case '': {
+				break;
 			}
 			case 'items': {
 				return <CurrentItems userItems={userItems} seeItem={seeItem} />;
