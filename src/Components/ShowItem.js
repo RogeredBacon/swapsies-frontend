@@ -1,9 +1,8 @@
 import React from 'react';
-import GMap from './GMap';
 import { Segment, Button } from 'semantic-ui-react';
 
 const ShowItem = (props) => {
-	const { item, trader, startTrade, lat, long } = props;
+	const { item, trader, startTrade } = props;
 	// const location = this.props.trader.location.split(', ');
 	return (
 		<div>
