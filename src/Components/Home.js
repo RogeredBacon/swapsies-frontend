@@ -410,6 +410,7 @@ class Home extends React.Component {
 						userItems={userItems}
 						getCurrentItems={this.getCurrentItems}
 						segment={segment}
+						seeItem={this.seeItem}
 					/>
 				);
 			}

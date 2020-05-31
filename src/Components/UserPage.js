@@ -4,14 +4,14 @@ import PastTrades from './PastTrades';
 import { Segment, Image, Dropdown, Button } from 'semantic-ui-react';
 
 const UserPage = (props) => {
-	const { currentUser, segment, userItems, getCurrentItems } = props;
+	const { currentUser, segment, userItems, getCurrentItems, seeItem } = props;
 
 	const renderSegment = () => {
 		switch (segment) {
 			case '': {
 			}
 			case 'items': {
-				return <CurrentItems userItems={userItems} />;
+				return <CurrentItems userItems={userItems} seeItem={seeItem} />;
 			}
 			case 'pastTrades': {
 				return <PastTrades />;
