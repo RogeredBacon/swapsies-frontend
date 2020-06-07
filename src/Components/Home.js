@@ -35,6 +35,7 @@ class Home extends React.Component {
 		this.getAllItems();
 	}
 
+	//Fetchs
 	getAllItems = () => {
 		fetch('http://localhost:3000/items')
 			.then((res) => res.json())
@@ -153,6 +154,80 @@ class Home extends React.Component {
 		});
 	};
 
+	getDealItems = (tradeRequestId) => {
+		fetch(
+			`http://localhost:3000/trade_requests/${tradeRequestId}/goods/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((usersItems) =>
+				this.setState({ sellArray: usersItems[0], buyArray: usersItems[1] })
+			);
+	};
+
+	addItem = (e, title, subtitle, description, worth_rating, skill, amount) => {
+		e.preventDefault();
+		if (skill) {
+			const data = {
+				user_id: this.state.currentUser.id,
+				title,
+				subtitle,
+				description,
+				worth_rating,
+				session_time: amount,
+			};
+			fetch(`http://localhost:3000/skills`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+				.then((res) => res.json())
+				.then((data) => this.getAllItems())
+				.catch(console.log);
+		} else {
+			const data = {
+				user_id: this.state.currentUser.id,
+				title,
+				subtitle,
+				description,
+				worth_rating,
+				amount,
+			};
+			fetch(`http://localhost:3000/items`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+				.then((res) => res.json())
+				.then((data) => this.getAllItems())
+				.catch(console.log);
+		}
+		this.getAllItems();
+		this.setPage('home');
+	};
+
+	getUsersTradePartners = () => {
+		return fetch(
+			`http://localhost:3000/users_partners/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((userPartners) => this.setState({ userPartners }));
+	};
+
+	getUsersTrades = () => {
+		return fetch(
+			`http://localhost:3000/trade_requests_user/${this.state.currentUser.id}`
+		)
+			.then((res) => res.json())
+			.then((userTrades) => this.setState({ userTrades }));
+	};
+
+	// Set page function
 	setPage = (page) => {
 		this.setState({
 			currentPage: page,
@@ -206,18 +281,7 @@ class Home extends React.Component {
 	startTrade = () => {
 		this.getTradersItems(this.state.trader.id);
 		this.getUsersItems(this.state.currentUser.id);
-
 		this.setPage('trade');
-	};
-
-	getDealItems = (tradeRequestId) => {
-		fetch(
-			`http://localhost:3000/trade_requests/${tradeRequestId}/goods/${this.state.currentUser.id}`
-		)
-			.then((res) => res.json())
-			.then((usersItems) =>
-				this.setState({ sellArray: usersItems[0], buyArray: usersItems[1] })
-			);
 	};
 
 	editTrade = (tradeRequestId, traderId) => {
@@ -232,22 +296,6 @@ class Home extends React.Component {
 		this.getUsersTrades()
 			.then(this.getUsersTradePartners())
 			.then(this.setPage('userTrades'));
-	};
-
-	getUsersTradePartners = () => {
-		return fetch(
-			`http://localhost:3000/users_partners/${this.state.currentUser.id}`
-		)
-			.then((res) => res.json())
-			.then((userPartners) => this.setState({ userPartners }));
-	};
-
-	getUsersTrades = () => {
-		return fetch(
-			`http://localhost:3000/trade_requests_user/${this.state.currentUser.id}`
-		)
-			.then((res) => res.json())
-			.then((userTrades) => this.setState({ userTrades }));
 	};
 
 	createTrade = () => {
@@ -284,53 +332,6 @@ class Home extends React.Component {
 		}
 	};
 
-	addItem = (e, title, subtitle, description, worth_rating, skill, amount) => {
-		e.preventDefault();
-		if (skill) {
-			const data = {
-				user_id: this.state.currentUser.id,
-				title,
-				subtitle,
-				description,
-				worth_rating,
-				session_time: amount,
-			};
-			fetch(`http://localhost:3000/skills`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					accept: 'application/json',
-				},
-				body: JSON.stringify(data),
-			})
-				.then((res) => res.json())
-				.then((data) => this.getAllItems())
-				.catch(console.log);
-		} else {
-			const data = {
-				user_id: this.state.currentUser.id,
-				title,
-				subtitle,
-				description,
-				worth_rating,
-				amount,
-			};
-			fetch(`http://localhost:3000/items`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					accept: 'application/json',
-				},
-				body: JSON.stringify(data),
-			})
-				.then((res) => res.json())
-				.then((data) => this.getAllItems())
-				.catch(console.log);
-		}
-		this.getAllItems();
-		this.setPage('home');
-	};
-
 	renderComponents = () => {
 		const {
 			currentPage,
@@ -347,6 +348,9 @@ class Home extends React.Component {
 			userItems,
 			segment,
 		} = this.state;
+
+		//Switch for pages(Remove for react router later)
+
 		switch (currentPage) {
 			case 'home': {
 				return <ItemsContainer items={items} seeItem={this.seeItem} />;
