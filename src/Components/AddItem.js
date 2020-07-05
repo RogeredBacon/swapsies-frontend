@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Segment, Checkbox } from 'semantic-ui-react';
 
-const AddItem = props => {
+const AddItem = (props) => {
 	const { addItem } = props;
 	return (
 		// <Segment>
@@ -10,7 +10,7 @@ const AddItem = props => {
 		<Segment>
 			<Form
 				className='addItem'
-				onSubmit={e => {
+				onSubmit={(e) => {
 					addItem(
 						e,
 						e.target.title.value,
