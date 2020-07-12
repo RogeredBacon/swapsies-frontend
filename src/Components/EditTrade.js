@@ -14,6 +14,8 @@ const EditTrade = (props) => {
 		cancelTrade,
 		createTrade,
 		changeAmount,
+		usersDropdownValues,
+		tradersDropdownValues,
 	} = props;
 
 	return (
@@ -27,6 +29,8 @@ const EditTrade = (props) => {
 					sellArray={sellArray}
 					buyArray={buyArray}
 					changeAmount={changeAmount}
+					usersDropdownValues={usersDropdownValues}
+					tradersDropdownValues={tradersDropdownValues}
 				/>
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
