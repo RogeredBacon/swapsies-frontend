@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Image, Dropdown } from 'semantic-ui-react';
 
-const TradeItem = (props) => {
+const EditTradeItem = (props) => {
 	const { item, changeAmount } = props;
 
 	const getOptions = (number, prefix = 'Choice ') =>
@@ -50,4 +50,4 @@ const TradeItem = (props) => {
 	}
 };
 
-export default TradeItem;
+export default EditTradeItem;
