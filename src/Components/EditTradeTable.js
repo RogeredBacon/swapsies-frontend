@@ -1,9 +1,9 @@
 import React from 'react';
-import ItemDropdown from './ItemDropdown';
+import EditItemDropdown from './EditItemDropdown';
 import EditTradeItem from './EditTradeItem';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 
-const TradeTable = (props) => {
+const EditTradeTable = (props) => {
 	const {
 		usersOptions,
 		sellItem,
@@ -12,6 +12,8 @@ const TradeTable = (props) => {
 		sellArray,
 		buyArray,
 		changeAmount,
+		usersDropdownValues,
+		tradersDropdownValues,
 	} = props;
 
 	const row = (array) => {
@@ -31,13 +33,21 @@ const TradeTable = (props) => {
 			<Grid columns={2} relaxed='very'>
 				<Grid.Column>
 					<Grid.Row>
-						<ItemDropdown options={usersOptions} tradeItem={sellItem} />
+						<EditItemDropdown
+							options={usersOptions}
+							tradeItem={sellItem}
+							dropdownValues={usersDropdownValues}
+						/>
 					</Grid.Row>
 					{row(sellArray)}
 				</Grid.Column>
 				<Grid.Column>
 					<Grid.Row>
-						<ItemDropdown options={tradersOptions} tradeItem={buyItem} />
+						<EditItemDropdown
+							options={tradersOptions}
+							tradeItem={buyItem}
+							dropdownValues={tradersDropdownValues}
+						/>
 					</Grid.Row>
 					{row(buyArray)}
 				</Grid.Column>
@@ -47,4 +57,4 @@ const TradeTable = (props) => {
 		</Segment>
 	);
 };
-export default TradeTable;
+export default EditTradeTable;
