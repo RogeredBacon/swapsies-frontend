@@ -1,38 +1,103 @@
+body {
+	padding: 10px;
+	height: 100%;
+	/* background-image: url('./pictures/background-img.jpg'); */
+	background-size: cover;
+	color: #07134f;
+	font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
+}
+
 .App {
-  text-align: center;
+	background-color: grey;
+	text-align: center;
+	displa1y: flex;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .title-div{
+  height: 0.3vm;
+} */
+
+.login-form {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar {
+	height: auto;
+}
+/* .side-drawer {
+    height: 100%;
+    background-color: #594F8D;
+    box-shadow: 1px 0 7px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25%;
+    max-width: 400px;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+} */
+
+.tradeItem {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	height: auto;
+	max-width: 100%;
+	display: flex;
+	margin: 2%;
+	border-radius: 10px;
+	align-items: center;
+	justify-content: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.tradeItemText {
+	text-align: center;
+	background-color: #efeff7cc;
+	height: 25%;
+	width: 90%;
+	color: #072d68;
+	border-radius: 10px;
+	scale: 0.65;
+	position: absolute;
+	top: 63%;
+	left: 35%;
+	transform: translate(-50%, -50%);
 }
 
-.App-link {
-  color: #61dafb;
+.goodItem {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	height: 231px;
+	width: 312px;
+	display: flex;
+	margin: 2%;
+	border-radius: 10px;
+	align-items: center;
+	justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#itemsContainer {
+	display: inline-flex;
+	flex-wrap: wrap;
+}
+
+.itemText {
+	text-align: center;
+	padding-top: 5%;
+	background-color: #efeff7cc;
+	height: 25%;
+	width: 60%;
+	color: #072d68;
+	/* border-radius: 90%; */
+	scale: 1.3;
+}
+
+#itemImage {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
 }
