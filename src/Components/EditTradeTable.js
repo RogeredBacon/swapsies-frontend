@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemDropdown from './ItemDropdown';
-import TradeItem from './TradeItem';
+import EditTradeItem from './EditTradeItem';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 
 const TradeTable = (props) => {
@@ -18,7 +18,7 @@ const TradeTable = (props) => {
 		let test = array.map((element) => {
 			return (
 				<Grid.Row>
-					<TradeItem item={element} changeAmount={changeAmount} />
+					<EditTradeItem item={element} changeAmount={changeAmount} />
 				</Grid.Row>
 			);
 		});
