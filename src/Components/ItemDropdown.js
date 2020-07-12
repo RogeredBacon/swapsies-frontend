@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 
-const ItemDropdown = props => {
+const ItemDropdown = (props) => {
 	const { options, tradeItem } = props;
 
 	return (
