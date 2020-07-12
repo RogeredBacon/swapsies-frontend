@@ -249,6 +249,14 @@ class Home extends React.Component {
 		}
 	};
 
+	setDropdownValues = (itemArray, options) => {
+		let arr = [];
+		itemArray.forEach((item) => {
+			arr.push(options.find((option) => option.text === item.title).value);
+		});
+		return arr;
+	};
+
 	buyItem = (event, { value }) => {
 		console.log(value);
 		const buyArray = value.map((id) =>
@@ -399,6 +407,14 @@ class Home extends React.Component {
 						cancelTrade={this.cancelTrade}
 						createTrade={this.createTrade}
 						changeAmount={this.changeAmount}
+						usersDropdownValues={this.setDropdownValues(
+							this.state.sellArray,
+							this.state.usersOptions
+						)}
+						tradersDropdownValues={this.setDropdownValues(
+							this.state.buyArray,
+							this.state.tradersOptions
+						)}
 					/>
 				);
 			}
