@@ -7,8 +7,8 @@ const EditTrade = (props) => {
 		trader,
 		tradersOptions,
 		usersOptions,
-		buyArray,
-		sellArray,
+		editBuyArray,
+		editSellArray,
 		buyItem,
 		sellItem,
 		cancelTrade,
@@ -26,8 +26,8 @@ const EditTrade = (props) => {
 					usersOptions={usersOptions}
 					sellItem={sellItem}
 					buyItem={buyItem}
-					sellArray={sellArray}
-					buyArray={buyArray}
+					editSellArray={editSellArray}
+					editBuyArray={editBuyArray}
 					changeAmount={changeAmount}
 					usersDropdownValues={usersDropdownValues}
 					tradersDropdownValues={tradersDropdownValues}

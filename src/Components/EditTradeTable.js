@@ -9,8 +9,8 @@ const EditTradeTable = (props) => {
 		sellItem,
 		tradersOptions,
 		buyItem,
-		sellArray,
-		buyArray,
+		editSellArray,
+		editBuyArray,
 		changeAmount,
 		usersDropdownValues,
 		tradersDropdownValues,
@@ -39,7 +39,7 @@ const EditTradeTable = (props) => {
 							dropdownValues={usersDropdownValues}
 						/>
 					</Grid.Row>
-					{row(sellArray)}
+					{row(editSellArray)}
 				</Grid.Column>
 				<Grid.Column>
 					<Grid.Row>
@@ -49,7 +49,7 @@ const EditTradeTable = (props) => {
 							dropdownValues={tradersDropdownValues}
 						/>
 					</Grid.Row>
-					{row(buyArray)}
+					{row(editBuyArray)}
 				</Grid.Column>
 			</Grid>
 
