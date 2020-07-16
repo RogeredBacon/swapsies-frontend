@@ -11,7 +11,7 @@ const EditTradeTable = (props) => {
 		buyItem,
 		editSellArray,
 		editBuyArray,
-		changeAmount,
+		editChangeAmount,
 		usersDropdownValues,
 		tradersDropdownValues,
 	} = props;
@@ -20,7 +20,7 @@ const EditTradeTable = (props) => {
 		let test = array.map((element) => {
 			return (
 				<Grid.Row>
-					<EditTradeItem item={element} changeAmount={changeAmount} />
+					<EditTradeItem item={element} editChangeAmount={editChangeAmount} />
 				</Grid.Row>
 			);
 		});

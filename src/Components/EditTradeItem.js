@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, Dropdown } from 'semantic-ui-react';
 
 const EditTradeItem = (props) => {
-	const { item, changeAmount } = props;
+	const { item, editChangeAmount } = props;
 
 	const getOptions = (number, prefix = 'Choice ') =>
 		_.drop(
@@ -27,7 +27,7 @@ const EditTradeItem = (props) => {
 					selection
 					defaultValue={item.total}
 					options={getOptions(6, '')}
-					onChange={changeAmount}
+					onChange={editChangeAmount}
 				/>
 			</div>
 		);
@@ -43,7 +43,7 @@ const EditTradeItem = (props) => {
 					selection
 					defaultValue={item.total}
 					options={getOptions(item.amount, '')}
-					onChange={changeAmount}
+					onChange={editChangeAmount}
 				/>
 			</div>
 		);

@@ -186,12 +186,20 @@ class Home extends React.Component {
 		});
 
 		filteredOldItems = oldItems.filter((item) => {
-			if (!duplicatesArray.find((dupe) => dupe.id === item.id)) {
+			if (
+				!duplicatesArray.find(
+					(dupe) => dupe.id === item.id && dupe.total === item.total
+				)
+			) {
 				return item;
 			}
 		});
 		filteredNewItems = newItems.filter((item) => {
-			if (!duplicatesArray.find((dupe) => dupe.id === item.id)) {
+			if (
+				!duplicatesArray.find(
+					(dupe) => dupe.id === item.id && dupe.total === item.total
+				)
+			) {
 				return item;
 			}
 		});
@@ -651,7 +659,7 @@ class Home extends React.Component {
 						sellItem={this.editSellItem}
 						cancelTrade={this.cancelTrade}
 						createTrade={this.editCreateTrade}
-						changeAmount={this.editChangeAmount}
+						editChangeAmount={this.editChangeAmount}
 						usersDropdownValues={this.setDropdownValues(
 							this.state.editSellArray,
 							this.state.usersOptions
