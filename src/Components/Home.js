@@ -210,135 +210,135 @@ class Home extends React.Component {
 		console.log('filteredNewItems:', filteredNewItems);
 		console.log('duplicatesArray:', duplicatesArray);
 
-		// if (filteredOldItems.length <= 0) {
-		// 	filteredNewItems.forEach((element) => {
-		// 		if (!element.amount) {
-		// 			console.log('skill', element);
-		// 			const data = {
-		// 				trade_request_id: tradeRequestId,
-		// 				skill_id: element.id,
-		// 				locked: false,
-		// 				amount: element.total ? element.total : 1,
-		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_skills`, {
-		// 				method: 'POST',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		} else {
-		// 			console.log('item', element);
-		// 			const data = {
-		// 				trade_request_id: tradeRequestId,
-		// 				item_id: element.id,
-		// 				locked: false,
-		// 				amount: element.total ? element.total : 1,
-		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_items`, {
-		// 				method: 'POST',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		}
-		// 	});
-		// } else if (filteredNewItems.length <= 0) {
-		// 	filteredOldItems.forEach((element) => {
-		// 		if (!element.amount) {
-		// 			console.log('skill', element);
-		// 			// const data = {
-		// 			// 	trade_request_id: tradeRequestId,
-		// 			// 	skill_id: element.id,
-		// 			// 	locked: false,
-		// 			// 	amount: element.total ? element.total : 1,
-		// 			// };
-		// 			fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
-		// 				method: 'DELETE',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				// body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		} else {
-		// 			console.log('item', element);
-		// 			// const data = {
-		// 			// 	trade_request_id: tradeRequestId,
-		// 			// 	item_id: element.id,
-		// 			// 	locked: false,
-		// 			// 	amount: element.total ? element.total : 1,
-		// 			// };
-		// 			fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
-		// 				method: 'DELETE',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				// body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		}
-		// 	});
-		// } else {
-		// 	filteredNewItems.forEach((element) => {
-		// 		if (!element.amount) {
-		// 			console.log('skill', element);
-		// 			const data = {
-		// 				trade_request_id: tradeRequestId,
-		// 				skill_id: element.id,
-		// 				locked: false,
-		// 				amount: element.total ? element.total : 1,
-		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
-		// 				method: 'PATCH',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		} else {
-		// 			console.log('item', element);
-		// 			const data = {
-		// 				trade_request_id: tradeRequestId,
-		// 				item_id: element.id,
-		// 				locked: false,
-		// 				amount: element.total ? element.total : 1,
-		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
-		// 				method: 'PATCH',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				body: JSON.stringify(data),
-		// 			})
-		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
-		// 				.catch(console.log);
-		// 		}
-		// 	});
-		// }
+		if (filteredOldItems.length <= 0) {
+			filteredNewItems.forEach((element) => {
+				if (!element.amount) {
+					console.log('skill', element);
+					const data = {
+						trade_request_id: tradeRequestId,
+						skill_id: element.id,
+						locked: false,
+						amount: element.total ? element.total : 1,
+					};
+					fetch(`http://localhost:3000/trade_request_skills`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				} else {
+					console.log('item', element);
+					const data = {
+						trade_request_id: tradeRequestId,
+						item_id: element.id,
+						locked: false,
+						amount: element.total ? element.total : 1,
+					};
+					fetch(`http://localhost:3000/trade_request_items`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				}
+			});
+		} else if (filteredNewItems.length <= 0) {
+			filteredOldItems.forEach((element) => {
+				if (!element.amount) {
+					console.log('skill', element);
+					// const data = {
+					// 	trade_request_id: tradeRequestId,
+					// 	skill_id: element.id,
+					// 	locked: false,
+					// 	amount: element.total ? element.total : 1,
+					// };
+					fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						// body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				} else {
+					console.log('item', element);
+					// const data = {
+					// 	trade_request_id: tradeRequestId,
+					// 	item_id: element.id,
+					// 	locked: false,
+					// 	amount: element.total ? element.total : 1,
+					// };
+					fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						// body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				}
+			});
+		} else {
+			filteredNewItems.forEach((element) => {
+				if (!element.amount) {
+					console.log('skill', element);
+					const data = {
+						trade_request_id: tradeRequestId,
+						skill_id: element.id,
+						locked: false,
+						amount: element.total ? element.total : 1,
+					};
+					fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
+						method: 'PATCH',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				} else {
+					console.log('item', element);
+					const data = {
+						trade_request_id: tradeRequestId,
+						item_id: element.id,
+						locked: false,
+						amount: element.total ? element.total : 1,
+					};
+					fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
+						method: 'PATCH',
+						headers: {
+							'Content-Type': 'application/json',
+							accept: 'application/json',
+						},
+						body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then((tradeID) => console.log(tradeID))
+						.catch(console.log);
+				}
+			});
+		}
 
-		// console.log('TradeID', tradeRequestId);
+		console.log('TradeID', tradeRequestId);
 	};
 
 	getDealItems = (tradeRequestId) => {
