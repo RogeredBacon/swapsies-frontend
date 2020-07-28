@@ -262,35 +262,41 @@ class Home extends React.Component {
 					// 	locked: false,
 					// 	amount: element.total ? element.total : 1,
 					// };
-					fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
-						method: 'DELETE',
-						headers: {
-							'Content-Type': 'application/json',
-							accept: 'application/json',
-						},
-						// body: JSON.stringify(data),
-					})
+					fetch(
+						`http://localhost:3000/trade_request_skills/${element.id}/${tradeRequestId}`,
+						{
+							method: 'DELETE',
+							headers: {
+								'Content-Type': 'application/json',
+								accept: 'application/json',
+							},
+							// body: JSON.stringify(data),
+						}
+					)
 						.then((res) => res.json())
 						.then((tradeID) => console.log(tradeID))
 						.catch(console.log);
 				} else {
-					console.log('item', element);
+					// console.log('item', element, 'tradeRequestId', tradeRequestId);
 					// const data = {
 					// 	trade_request_id: tradeRequestId,
 					// 	item_id: element.id,
 					// 	locked: false,
 					// 	amount: element.total ? element.total : 1,
 					// };
-					fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
-						method: 'DELETE',
-						headers: {
-							'Content-Type': 'application/json',
-							accept: 'application/json',
-						},
-						// body: JSON.stringify(data),
-					})
+					fetch(
+						`http://localhost:3000/trade_request_items/${element.id}/${tradeRequestId}`,
+						{
+							method: 'DELETE',
+							headers: {
+								'Content-Type': 'application/json',
+								accept: 'application/json',
+							},
+							// body: JSON.stringify(data),
+						}
+					)
 						.then((res) => res.json())
-						.then((tradeID) => console.log(tradeID))
+						.then((data) => console.log(data))
 						.catch(console.log);
 				}
 			});
