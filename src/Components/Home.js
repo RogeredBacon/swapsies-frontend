@@ -32,11 +32,16 @@ class Home extends React.Component {
 		editBuyArray: [],
 		editSellArray: [],
 		currentTradeID: [],
+		oldItems: [],
 	};
 
 	componentDidMount() {
 		this.getAllItems();
 	}
+
+	// Should change the way trade request items and skills are returned
+	// so that we have access to their specific id. May mess up how we deal with
+	// displaying them in the trade window
 
 	//Fetchs
 	getAllItems = () => {
@@ -158,7 +163,7 @@ class Home extends React.Component {
 	};
 
 	editItemsToTrade = (tradeRequestId) => {
-		const oldItems = this.state.buyArray.concat(this.state.sellArray);
+		const oldItems = this.state.oldItems;
 		const newItems = this.state.editBuyArray.concat(this.state.editSellArray);
 		let filteredOldItems = [];
 		let filteredNewItems = [];
@@ -256,41 +261,32 @@ class Home extends React.Component {
 		// 	filteredOldItems.forEach((element) => {
 		// 		if (!element.amount) {
 		// 			console.log('skill', element);
-		// 			// const data = {
-		// 			// 	trade_request_id: tradeRequestId,
-		// 			// 	skill_id: element.id,
-		// 			// 	locked: false,
-		// 			// 	amount: element.total ? element.total : 1,
-		// 			// };
-		// 			fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
-		// 				method: 'DELETE',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				// body: JSON.stringify(data),
-		// 			})
+		// 			fetch(
+		// 				`http://localhost:3000/trade_request_skills/${element.id}/${tradeRequestId}`,
+		// 				{
+		// 					method: 'DELETE',
+		// 					headers: {
+		// 						'Content-Type': 'application/json',
+		// 						accept: 'application/json',
+		// 					},
+		// 				}
+		// 			)
 		// 				.then((res) => res.json())
 		// 				.then((tradeID) => console.log(tradeID))
 		// 				.catch(console.log);
 		// 		} else {
-		// 			console.log('item', element);
-		// 			// const data = {
-		// 			// 	trade_request_id: tradeRequestId,
-		// 			// 	item_id: element.id,
-		// 			// 	locked: false,
-		// 			// 	amount: element.total ? element.total : 1,
-		// 			// };
-		// 			fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
-		// 				method: 'DELETE',
-		// 				headers: {
-		// 					'Content-Type': 'application/json',
-		// 					accept: 'application/json',
-		// 				},
-		// 				// body: JSON.stringify(data),
-		// 			})
+		// 			fetch(
+		// 				`http://localhost:3000/trade_request_items/${element.id}/${tradeRequestId}`,
+		// 				{
+		// 					method: 'DELETE',
+		// 					headers: {
+		// 						'Content-Type': 'application/json',
+		// 						accept: 'application/json',
+		// 					},
+		// 				}
+		// 			)
 		// 				.then((res) => res.json())
-		// 				.then((tradeID) => console.log(tradeID))
+		// 				.then((data) => console.log(data))
 		// 				.catch(console.log);
 		// 		}
 		// 	});
@@ -304,7 +300,7 @@ class Home extends React.Component {
 		// 				locked: false,
 		// 				amount: element.total ? element.total : 1,
 		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_skills/${element.id}`, {
+		// 			fetch(`http://localhost:3000/trade_request_skills`, {
 		// 				method: 'PATCH',
 		// 				headers: {
 		// 					'Content-Type': 'application/json',
@@ -323,7 +319,7 @@ class Home extends React.Component {
 		// 				locked: false,
 		// 				amount: element.total ? element.total : 1,
 		// 			};
-		// 			fetch(`http://localhost:3000/trade_request_items/${element.id}`, {
+		// 			fetch(`http://localhost:3000/trade_request_items`, {
 		// 				method: 'PATCH',
 		// 				headers: {
 		// 					'Content-Type': 'application/json',
@@ -338,7 +334,7 @@ class Home extends React.Component {
 		// 	});
 		// }
 
-		// console.log('TradeID', tradeRequestId);
+		console.log('TradeID', tradeRequestId);
 	};
 
 	getDealItems = (tradeRequestId) => {
@@ -346,14 +342,16 @@ class Home extends React.Component {
 			`http://localhost:3000/trade_requests/${tradeRequestId}/goods/${this.state.currentUser.id}`
 		)
 			.then((res) => res.json())
-			.then((usersItems) =>
+			.then((usersItems) => {
+				const oldItems = usersItems[0].concat(usersItems[1]);
 				this.setState({
-					sellArray: usersItems[0],
-					buyArray: usersItems[1],
+					oldItems,
+					// sellArray: usersItems[0],
+					// buyArray: usersItems[1],
 					editSellArray: usersItems[0],
 					editBuyArray: usersItems[1],
-				})
-			);
+				});
+			});
 	};
 
 	addItem = (e, title, subtitle, description, worth_rating, skill, amount) => {
@@ -523,6 +521,9 @@ class Home extends React.Component {
 		this.getTradersItems(traderId);
 		this.getUsersItems(this.state.currentUser.id);
 		this.getDealItems(tradeRequestId);
+		// this.setState({
+		// 	oldItems: this.state.buyArray.concat(this.state.sellArray),
+		// });
 		this.setPage('editTrade');
 	};
 
