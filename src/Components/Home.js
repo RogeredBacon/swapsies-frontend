@@ -343,11 +343,7 @@ class Home extends React.Component {
 		)
 			.then((res) => res.json())
 			.then((usersItems) => {
-				const oldItems = usersItems[0].concat(usersItems[1]);
 				this.setState({
-					oldItems,
-					// sellArray: usersItems[0],
-					// buyArray: usersItems[1],
 					editSellArray: usersItems[0],
 					editBuyArray: usersItems[1],
 				});
@@ -521,9 +517,6 @@ class Home extends React.Component {
 		this.getTradersItems(traderId);
 		this.getUsersItems(this.state.currentUser.id);
 		this.getDealItems(tradeRequestId);
-		// this.setState({
-		// 	oldItems: this.state.buyArray.concat(this.state.sellArray),
-		// });
 		this.setPage('editTrade');
 	};
 
