@@ -161,7 +161,9 @@ class Home extends React.Component {
 			}
 		});
 	};
-
+	// Don't really like this way of doing it but can't figure out how to not get values from database
+	// as when I try to set the value within getDealItems the state changes to reflect changes the user
+	// makes even though I'm not telling it to. Annoying!
 	getDealChangedItems = (tradeRequestId) => {
 		fetch(
 			`http://localhost:3000/trade_requests/${tradeRequestId}/goods/${this.state.currentUser.id}`
