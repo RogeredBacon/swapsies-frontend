@@ -99,7 +99,7 @@ class Home extends React.Component {
 		const data = {
 			initiating_user_id: this.state.currentUser.id,
 			receiving_user_id: this.state.trader.id,
-			status: 'open',
+			status: 'Awaiting receiver',
 			initiator_complete: false,
 			receiver_complete: false,
 		};
@@ -422,6 +422,20 @@ class Home extends React.Component {
 			.then((userTrades) => this.setState({ userTrades }));
 	};
 
+	editTradeStatus = (tradeID, userID) => {
+		console.log('edit trade status:', tradeID, userID);
+		fetch(`http://localhost:3000/trade_requests/${tradeID}/status/${userID}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				accept: 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((tradeID) => tradeID)
+			.catch(console.log);
+	};
+
 	// Set page function
 	setPage = (page) => {
 		this.setState({
@@ -544,6 +558,7 @@ class Home extends React.Component {
 	editCreateTrade = () => {
 		console.log('tradeID:', this.state.currentTradeID);
 		this.editItemsToTrade(this.state.currentTradeID);
+		this.editTradeStatus(this.state.currentTradeID, this.state.currentUser.id);
 		this.setPage('home');
 	};
 
@@ -551,6 +566,8 @@ class Home extends React.Component {
 		this.setState({
 			sellArray: [],
 			buyArray: [],
+			editSellArray: [],
+			editBuyArray: [],
 		});
 		this.setPage(page);
 	};

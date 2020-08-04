@@ -16,13 +16,13 @@ const UserTrades = (props) => {
 							</h4>
 						</Table.Cell>
 						<Table.Cell>
-							{element.receiver_complete
-								? `${
+							{element.status === 'Awaiting receiver'
+								? `Waiting for ${
 										userPartners[element.receiving_user_id]
-								  } has accepted your trade`
-								: `Waiting for ${
+								  } to edit trade`
+								: `${
 										userPartners[element.receiving_user_id]
-								  } to accept`}
+								  } is waiting for you to edit trade`}
 						</Table.Cell>
 					</Table.Row>
 				);
@@ -34,13 +34,13 @@ const UserTrades = (props) => {
 							{userPartners[element.initiating_user_id]} Trade With You
 						</Table.Cell>
 						<Table.Cell>
-							{element.receiver_complete
-								? `You have accepted ${
+							{element.status === 'Awaiting initiator'
+								? `Waiting for ${
 										userPartners[element.initiating_user_id]
-								  } trade`
-								: `Waiting for you to accept ${
+								  } to edit trade`
+								: `${
 										userPartners[element.initiating_user_id]
-								  } trade`}
+								  } is waiting for you to edit trade`}
 						</Table.Cell>
 					</Table.Row>
 				);
