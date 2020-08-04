@@ -25,7 +25,7 @@ const EditTradeItem = (props) => {
 					skill='true'
 					placeholder='Sessions'
 					selection
-					defaultValue={item.total}
+					defaultValue={item.total ? item.total : 1}
 					options={getOptions(6, '')}
 					onChange={editChangeAmount}
 				/>
@@ -41,7 +41,7 @@ const EditTradeItem = (props) => {
 					skill='false'
 					placeholder='Amount'
 					selection
-					defaultValue={item.total}
+					defaultValue={item.total ? item.total : 1}
 					options={getOptions(item.amount, '')}
 					onChange={editChangeAmount}
 				/>

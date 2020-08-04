@@ -182,9 +182,7 @@ class Home extends React.Component {
 
 		newItems.forEach((newItem) => {
 			if (!newItem.total) {
-				newItem.total = oldItems.find(
-					(oldItem) => oldItem.id === newItem.id
-				).total;
+				newItem.total = 1;
 			}
 		});
 
