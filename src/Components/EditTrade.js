@@ -35,6 +35,7 @@ const EditTrade = (props) => {
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
 			<Button onClick={createTrade}>Accept!</Button>
+			<Button onClick={''}>Commit!</Button>
 			<Segment>
 				<div>
 					<h1>Trader</h1>
