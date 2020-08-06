@@ -31,7 +31,7 @@ class Home extends React.Component {
 		segment: '',
 		editBuyArray: [],
 		editSellArray: [],
-		currentTradeID: [],
+		currentTrade: [],
 		oldItems: [],
 	};
 
@@ -436,6 +436,29 @@ class Home extends React.Component {
 			.catch(console.log);
 	};
 
+	toggleCommitToTrade = () => {
+		console.log(
+			'toggle trade commit- ',
+			'TradeID: ',
+			this.state.currentTrade,
+			'UserID: ',
+			this.state.currentUser.id
+		);
+		fetch(
+			`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/commit/${this.state.currentUser.id}`,
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+				},
+			}
+		)
+			.then((res) => res.json())
+			.then((currentTrade) => this.setState({ currentTrade }))
+			.catch(console.log);
+	};
+
 	// Set page function
 	setPage = (page) => {
 		this.setState({
@@ -535,12 +558,12 @@ class Home extends React.Component {
 		this.setPage('trade');
 	};
 
-	editTrade = (tradeRequestId, traderId) => {
-		this.setState({ currentTradeID: tradeRequestId });
+	editTrade = (tradeRequest, traderId) => {
+		this.setState({ currentTrade: tradeRequest });
 		this.getTradersItems(traderId);
 		this.getUsersItems(this.state.currentUser.id);
-		this.getDealItems(tradeRequestId);
-		this.getDealChangedItems(tradeRequestId);
+		this.getDealItems(tradeRequest.id);
+		this.getDealChangedItems(tradeRequest.id);
 		this.setPage('editTrade');
 	};
 
@@ -625,6 +648,7 @@ class Home extends React.Component {
 			segment,
 			editBuyArray,
 			editSellArray,
+			currentTrade,
 		} = this.state;
 
 		//Switch for pages(Remove for react router later)
@@ -685,6 +709,9 @@ class Home extends React.Component {
 							this.state.editBuyArray,
 							this.state.tradersOptions
 						)}
+						toggleCommitToTrade={this.toggleCommitToTrade}
+						currentTrade={currentTrade}
+						currentUser={currentUser}
 					/>
 				);
 			}

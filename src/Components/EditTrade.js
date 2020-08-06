@@ -16,6 +16,9 @@ const EditTrade = (props) => {
 		editChangeAmount,
 		usersDropdownValues,
 		tradersDropdownValues,
+		toggleCommitToTrade,
+		currentTrade,
+		currentUser,
 	} = props;
 
 	return (
@@ -35,7 +38,15 @@ const EditTrade = (props) => {
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
 			<Button onClick={createTrade}>Accept!</Button>
-			<Button onClick={''}>Commit!</Button>
+			<Button onClick={toggleCommitToTrade}>
+				{currentTrade.receiving_user_id == currentUser.id
+					? currentTrade.receiver_complete
+						? 'Uncommit'
+						: 'Commit'
+					: currentTrade.initiator_complete
+					? 'Uncommit'
+					: 'Commit'}
+			</Button>
 			<Segment>
 				<div>
 					<h1>Trader</h1>

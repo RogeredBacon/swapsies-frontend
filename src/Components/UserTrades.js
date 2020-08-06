@@ -10,7 +10,7 @@ const UserTrades = (props) => {
 				return (
 					<Table.Row>
 						<Table.Cell
-							onClick={() => editTrade(element.id, element.receiving_user_id)}>
+							onClick={() => editTrade(element, element.receiving_user_id)}>
 							<h4>
 								Your Trade With {userPartners[element.receiving_user_id]}{' '}
 							</h4>
@@ -30,7 +30,7 @@ const UserTrades = (props) => {
 				return (
 					<Table.Row>
 						<Table.Cell
-							onClick={() => editTrade(element.id, element.initiating_user_id)}>
+							onClick={() => editTrade(element, element.initiating_user_id)}>
 							{userPartners[element.initiating_user_id]} Trade With You
 						</Table.Cell>
 						<Table.Cell>
