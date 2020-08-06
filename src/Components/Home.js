@@ -220,6 +220,15 @@ class Home extends React.Component {
 			}
 		});
 
+		if (filteredNewItems.length != 0 || filteredOldItems.length != 0) {
+			this.toggleCommitToTrade(
+				this.state.currentTrade.receiving_user_id != this.state.currentUser.id
+					? this.state.currentTrade.receiving_user_id
+					: this.state.currentTrade.initiating_user_id,
+				false
+			);
+		}
+
 		console.log('oldItems:', oldItems);
 		console.log('newItems:', newItems);
 		console.log('filteredOldItems:', filteredOldItems);
@@ -436,16 +445,16 @@ class Home extends React.Component {
 			.catch(console.log);
 	};
 
-	toggleCommitToTrade = () => {
+	toggleCommitToTrade = (userID, toggle = true) => {
 		console.log(
 			'toggle trade commit- ',
 			'TradeID: ',
 			this.state.currentTrade,
 			'UserID: ',
-			this.state.currentUser.id
+			userID
 		);
 		fetch(
-			`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/commit/${this.state.currentUser.id}`,
+			`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/commit/${userID}/${toggle}`,
 			{
 				method: 'PATCH',
 				headers: {
@@ -579,9 +588,9 @@ class Home extends React.Component {
 	};
 
 	editCreateTrade = () => {
-		console.log('tradeID:', this.state.currentTradeID);
-		this.editItemsToTrade(this.state.currentTradeID);
-		this.editTradeStatus(this.state.currentTradeID, this.state.currentUser.id);
+		console.log('tradeID:', this.state.currentTrade.id);
+		this.editItemsToTrade(this.state.currentTrade.id);
+		this.editTradeStatus(this.state.currentTrade.id, this.state.currentUser.id);
 		this.setPage('home');
 	};
 

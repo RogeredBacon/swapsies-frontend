@@ -38,7 +38,7 @@ const EditTrade = (props) => {
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
 			<Button onClick={createTrade}>Accept!</Button>
-			<Button onClick={toggleCommitToTrade}>
+			<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
 				{currentTrade.receiving_user_id == currentUser.id
 					? currentTrade.receiver_complete
 						? 'Uncommit'
