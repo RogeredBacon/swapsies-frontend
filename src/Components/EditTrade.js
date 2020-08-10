@@ -49,9 +49,8 @@ const EditTrade = (props) => {
 			</Button>
 			<Segment>
 				<div>
-					<h1>Trader</h1>
+					<h1>Trader Not working fix!</h1>
 					<h2>{trader.first_name}</h2>
-					<h2>{trader.last_name}</h2>
 					<h2>{trader.last_name}</h2>
 					{/* <h3>{trader.location}</h3> */}
 				</div>
