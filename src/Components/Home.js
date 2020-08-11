@@ -468,6 +468,8 @@ class Home extends React.Component {
 			.catch(console.log);
 	};
 
+	finalisingTrade = () => {};
+
 	// Set page function
 	setPage = (page) => {
 		this.setState({
