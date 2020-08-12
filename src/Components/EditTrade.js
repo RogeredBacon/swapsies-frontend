@@ -38,15 +38,19 @@ const EditTrade = (props) => {
 			</Segment>
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
 			<Button onClick={createTrade}>Accept!</Button>
-			<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
-				{currentTrade.receiving_user_id == currentUser.id
-					? currentTrade.receiver_complete
+			{currentTrade.receiver_complete && currentTrade.initiator_complete ? (
+				''
+			) : (
+				<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
+					{currentTrade.receiving_user_id == currentUser.id
+						? currentTrade.receiver_complete
+							? 'Uncommit'
+							: 'Commit'
+						: currentTrade.initiator_complete
 						? 'Uncommit'
-						: 'Commit'
-					: currentTrade.initiator_complete
-					? 'Uncommit'
-					: 'Commit'}
-			</Button>
+						: 'Commit'}
+				</Button>
+			)}
 			<Segment>
 				<div>
 					<h1>Trader Not working fix!</h1>
