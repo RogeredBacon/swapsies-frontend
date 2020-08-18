@@ -447,8 +447,8 @@ class Home extends React.Component {
 
 	toggleCommitToTrade = (userID, toggle = true) => {
 		console.log(
-			'toggle trade commit- ',
-			'TradeID: ',
+			'Toggle trade commit - ',
+			'Current Trade: ',
 			this.state.currentTrade,
 			'UserID: ',
 			userID
