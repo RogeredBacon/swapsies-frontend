@@ -19,6 +19,7 @@ const EditTrade = (props) => {
 		toggleCommitToTrade,
 		currentTrade,
 		currentUser,
+		finalisingTrade,
 	} = props;
 
 	return (
@@ -39,7 +40,7 @@ const EditTrade = (props) => {
 			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
 			<Button onClick={createTrade}>Accept!</Button>
 			{currentTrade.receiver_complete && currentTrade.initiator_complete ? (
-				''
+				finalisingTrade()
 			) : (
 				<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
 					{currentTrade.receiving_user_id == currentUser.id

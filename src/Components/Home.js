@@ -660,6 +660,7 @@ class Home extends React.Component {
 			editBuyArray,
 			editSellArray,
 			currentTrade,
+			finalisingTrade,
 		} = this.state;
 
 		//Switch for pages(Remove for react router later)
@@ -723,6 +724,7 @@ class Home extends React.Component {
 						toggleCommitToTrade={this.toggleCommitToTrade}
 						currentTrade={currentTrade}
 						currentUser={currentUser}
+						finalisingTrade={finalisingTrade}
 					/>
 				);
 			}
