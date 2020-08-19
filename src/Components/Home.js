@@ -447,8 +447,8 @@ class Home extends React.Component {
 
 	toggleCommitToTrade = (userID, toggle = true) => {
 		console.log(
-			'toggle trade commit- ',
-			'TradeID: ',
+			'Toggle trade commit - ',
+			'Current Trade: ',
 			this.state.currentTrade,
 			'UserID: ',
 			userID
@@ -660,6 +660,7 @@ class Home extends React.Component {
 			editBuyArray,
 			editSellArray,
 			currentTrade,
+			finalisingTrade,
 		} = this.state;
 
 		//Switch for pages(Remove for react router later)
@@ -723,6 +724,7 @@ class Home extends React.Component {
 						toggleCommitToTrade={this.toggleCommitToTrade}
 						currentTrade={currentTrade}
 						currentUser={currentUser}
+						finalisingTrade={finalisingTrade}
 					/>
 				);
 			}
