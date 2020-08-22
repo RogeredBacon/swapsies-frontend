@@ -14,6 +14,7 @@ const EditTradeTable = (props) => {
 		editChangeAmount,
 		usersDropdownValues,
 		tradersDropdownValues,
+		currentTrade,
 	} = props;
 
 	const row = (array) => {
@@ -33,21 +34,31 @@ const EditTradeTable = (props) => {
 			<Grid columns={2} relaxed='very'>
 				<Grid.Column>
 					<Grid.Row>
-						<EditItemDropdown
-							options={usersOptions}
-							tradeItem={sellItem}
-							dropdownValues={usersDropdownValues}
-						/>
+						{currentTrade.receiver_complete &&
+						currentTrade.initiator_complete ? (
+							''
+						) : (
+							<EditItemDropdown
+								options={usersOptions}
+								tradeItem={sellItem}
+								dropdownValues={usersDropdownValues}
+							/>
+						)}
 					</Grid.Row>
 					{row(editSellArray)}
 				</Grid.Column>
 				<Grid.Column>
 					<Grid.Row>
-						<EditItemDropdown
-							options={tradersOptions}
-							tradeItem={buyItem}
-							dropdownValues={tradersDropdownValues}
-						/>
+						{currentTrade.receiver_complete &&
+						currentTrade.initiator_complete ? (
+							''
+						) : (
+							<EditItemDropdown
+								options={tradersOptions}
+								tradeItem={buyItem}
+								dropdownValues={tradersDropdownValues}
+							/>
+						)}
 					</Grid.Row>
 					{row(editBuyArray)}
 				</Grid.Column>
