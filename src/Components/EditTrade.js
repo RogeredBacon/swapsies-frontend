@@ -38,13 +38,22 @@ const EditTrade = (props) => {
 					currentTrade={currentTrade}
 				/>
 			</Segment>
-			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
-			<Button onClick={createTrade}>Accept!</Button>
+			{currentTrade.status === 'Committed' ? (
+				<>
+					<Button onClick={() => cancelTrade('home')}>Back</Button>
+					<Button onClick={''}>Completed</Button>
+				</>
+			) : (
+				<>
+					<Button onClick={() => cancelTrade('home')}>Cancel</Button>
+					<Button onClick={createTrade}>Accept!</Button>
+				</>
+			)}
 			{currentTrade.receiver_complete && currentTrade.initiator_complete ? (
-				finalisingTrade()
+				finalisingTrade
 			) : (
 				<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
-					{currentTrade.receiving_user_id == currentUser.id
+					{currentTrade.receiving_user_id === currentUser.id
 						? currentTrade.receiver_complete
 							? 'Uncommit'
 							: 'Commit'

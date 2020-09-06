@@ -21,7 +21,11 @@ const EditTradeTable = (props) => {
 		let test = array.map((element) => {
 			return (
 				<Grid.Row>
-					<EditTradeItem item={element} editChangeAmount={editChangeAmount} />
+					<EditTradeItem
+						item={element}
+						editChangeAmount={editChangeAmount}
+						currentTrade={currentTrade}
+					/>
 				</Grid.Row>
 			);
 		});

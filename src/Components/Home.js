@@ -468,7 +468,26 @@ class Home extends React.Component {
 			.catch(console.log);
 	};
 
-	finalisingTrade = () => {};
+	finalisingTrade = () => {
+		//make this work in backend then make sure the accept and back buttons work for committed; then make finalised page with needed functions
+		//Then sort out current trades window and completed trades. Then styling!!!
+		if (this.state.currentTrade.status != 'Committed') {
+			console.log('commit trade status:', this.state.currentTrade.id);
+			fetch(
+				`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/status-committed/`,
+				{
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+						accept: 'application/json',
+					},
+				}
+			)
+				.then((res) => res.json())
+				.then((currentTrade) => this.setState({ currentTrade }))
+				.catch(console.log);
+		}
+	};
 
 	// Set page function
 	setPage = (page) => {
