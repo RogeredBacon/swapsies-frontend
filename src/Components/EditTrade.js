@@ -50,7 +50,7 @@ const EditTrade = (props) => {
 				</>
 			)}
 			{currentTrade.receiver_complete && currentTrade.initiator_complete ? (
-				finalisingTrade
+				finalisingTrade()
 			) : (
 				<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
 					{currentTrade.receiving_user_id === currentUser.id

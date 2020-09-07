@@ -743,7 +743,7 @@ class Home extends React.Component {
 						toggleCommitToTrade={this.toggleCommitToTrade}
 						currentTrade={currentTrade}
 						currentUser={currentUser}
-						finalisingTrade={finalisingTrade}
+						finalisingTrade={this.finalisingTrade}
 					/>
 				);
 			}
