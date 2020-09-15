@@ -102,6 +102,8 @@ class Home extends React.Component {
 			status: 'Awaiting receiver',
 			initiator_complete: false,
 			receiver_complete: false,
+			initiator_finalised: false,
+			receiver_finalised: false,
 		};
 		return fetch(`http://localhost:3000/trade_requests`, {
 			method: 'POST',
@@ -471,7 +473,10 @@ class Home extends React.Component {
 	finalisingTrade = () => {
 		//make this work in backend then make sure the accept and back buttons work for committed; then make finalised page with needed functions
 		//Then sort out current trades window and completed trades. Then styling!!!
-		if (this.state.currentTrade.status != 'Committed') {
+		if (
+			this.state.currentTrade.status != 'Committed' &&
+			this.state.currentTrade.status != 'Complete'
+		) {
 			console.log('commit trade status:', this.state.currentTrade.id);
 			fetch(
 				`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/status-committed/`,
@@ -487,6 +492,29 @@ class Home extends React.Component {
 				.then((currentTrade) => this.setState({ currentTrade }))
 				.catch(console.log);
 		}
+	};
+
+	completeTrade = (userID) => {
+		console.log(
+			'Complete Trade - ',
+			'Current Trade: ',
+			this.state.currentTrade,
+			'UserID: ',
+			userID
+		);
+		fetch(
+			`http://localhost:3000/trade_requests/${this.state.currentTrade.id}/complete/${userID}/`,
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+				},
+			}
+		)
+			.then((res) => res.json())
+			.then((currentTrade) => this.setState({ currentTrade }))
+			.catch(console.log);
 	};
 
 	// Set page function
@@ -744,6 +772,7 @@ class Home extends React.Component {
 						currentTrade={currentTrade}
 						currentUser={currentUser}
 						finalisingTrade={this.finalisingTrade}
+						completeTrade={this.completeTrade}
 					/>
 				);
 			}

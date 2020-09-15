@@ -20,6 +20,7 @@ const EditTrade = (props) => {
 		currentTrade,
 		currentUser,
 		finalisingTrade,
+		completeTrade,
 	} = props;
 
 	return (
@@ -38,10 +39,20 @@ const EditTrade = (props) => {
 					currentTrade={currentTrade}
 				/>
 			</Segment>
-			{currentTrade.status === 'Committed' ? (
+			{currentTrade.status === 'Complete' ? (
+				<Button onClick={() => cancelTrade('home')}>Back</Button>
+			) : currentTrade.status === 'Committed' ? (
 				<>
 					<Button onClick={() => cancelTrade('home')}>Back</Button>
-					<Button onClick={''}>Completed</Button>
+					<Button onClick={() => completeTrade(currentUser.id)}>
+						{currentTrade.receiving_user_id === currentUser.id
+							? currentTrade.receiver_finalised
+								? ''
+								: 'Complete'
+							: currentTrade.initiator_finalised
+							? ''
+							: 'Complete'}
+					</Button>
 				</>
 			) : (
 				<>
