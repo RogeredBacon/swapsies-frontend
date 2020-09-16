@@ -73,14 +73,14 @@ const EditTrade = (props) => {
 						: 'Commit'}
 				</Button>
 			)}
-			<Segment>
-				<div>
+			{/* <Segment> */}
+			{/* <div>
 					<h1>Trader Not working fix!</h1>
 					<h2>{trader.first_name}</h2>
-					<h2>{trader.last_name}</h2>
-					{/* <h3>{trader.location}</h3> */}
-				</div>
-			</Segment>
+					<h2>{trader.last_name}</h2> */}
+			{/* <h3>{trader.location}</h3> */}
+			{/* </div> */}
+			{/* </Segment> */}
 		</div>
 	);
 };
