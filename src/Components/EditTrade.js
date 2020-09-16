@@ -20,6 +20,7 @@ const EditTrade = (props) => {
 		currentTrade,
 		currentUser,
 		finalisingTrade,
+		completeTrade,
 	} = props;
 
 	return (
@@ -35,15 +36,35 @@ const EditTrade = (props) => {
 					editChangeAmount={editChangeAmount}
 					usersDropdownValues={usersDropdownValues}
 					tradersDropdownValues={tradersDropdownValues}
+					currentTrade={currentTrade}
 				/>
 			</Segment>
-			<Button onClick={() => cancelTrade('home')}>Cancel</Button>
-			<Button onClick={createTrade}>Accept!</Button>
+			{currentTrade.status === 'Complete' ? (
+				<Button onClick={() => cancelTrade('home')}>Back</Button>
+			) : currentTrade.status === 'Committed' ? (
+				<>
+					<Button onClick={() => cancelTrade('home')}>Back</Button>
+					<Button onClick={() => completeTrade(currentUser.id)}>
+						{currentTrade.receiving_user_id === currentUser.id
+							? currentTrade.receiver_finalised
+								? ''
+								: 'Complete'
+							: currentTrade.initiator_finalised
+							? ''
+							: 'Complete'}
+					</Button>
+				</>
+			) : (
+				<>
+					<Button onClick={() => cancelTrade('home')}>Cancel</Button>
+					<Button onClick={createTrade}>Accept!</Button>
+				</>
+			)}
 			{currentTrade.receiver_complete && currentTrade.initiator_complete ? (
 				finalisingTrade()
 			) : (
 				<Button onClick={() => toggleCommitToTrade(currentUser.id)}>
-					{currentTrade.receiving_user_id == currentUser.id
+					{currentTrade.receiving_user_id === currentUser.id
 						? currentTrade.receiver_complete
 							? 'Uncommit'
 							: 'Commit'
@@ -52,14 +73,14 @@ const EditTrade = (props) => {
 						: 'Commit'}
 				</Button>
 			)}
-			<Segment>
-				<div>
+			{/* <Segment> */}
+			{/* <div>
 					<h1>Trader Not working fix!</h1>
 					<h2>{trader.first_name}</h2>
-					<h2>{trader.last_name}</h2>
-					{/* <h3>{trader.location}</h3> */}
-				</div>
-			</Segment>
+					<h2>{trader.last_name}</h2> */}
+			{/* <h3>{trader.location}</h3> */}
+			{/* </div> */}
+			{/* </Segment> */}
 		</div>
 	);
 };

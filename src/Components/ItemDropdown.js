@@ -6,7 +6,7 @@ const ItemDropdown = (props) => {
 
 	return (
 		<Dropdown
-			placeholder='Skills'
+			placeholder='Tradeables'
 			fluid
 			multiple
 			selection
